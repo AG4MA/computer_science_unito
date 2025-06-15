@@ -1,0 +1,31 @@
+
+PROGETTO BASI DI DATI – AREE PROTETTE ITALIANE
+
+Questo progetto nasce con l’idea di creare un sistema che organizzi tutte le informazioni relative alle aree protette italiane,
+come i parchi nazionali e le riserve naturali. L’obiettivo è offrire una panoramica completa e strumenti utili sia per la gestione
+che per i visitatori.
+
+Il primo passo è stato leggere con attenzione i requisiti, individuare i concetti chiave e definire un glossario dei termini
+per avere chiarezza fin da subito. Poi, ho riscritto i requisiti in modo più strutturato e omogeneo, così da facilitare la 
+modellazione del database.
+
+Lo schema E-R rappresenta tutte le entità principali: i parchi, i visitatori, le guide, le strutture ricettive, gli itinerari, 
+i tour guidati, i commenti, le valutazioni, le notizie. Sono state fatte alcune scelte progettuali importanti:
+- i visitatori sono tutti nella stessa entità, ma con un attributo che indica se sono adulti, bambini, gruppi ecc.
+- le guide sono entità indipendenti con un calendario di disponibilità
+- i tour guidati sono separati dagli itinerari per gestire meglio le prenotazioni
+- è stato deciso di mantenere una piccola ridondanza (il numero di guide disponibili per itinerario) per migliorare le prestazioni
+
+Nella progettazione logica ho stimato i volumi di dati attesi e identificato le operazioni principali, come la prenotazione 
+di un tour o la valutazione di un itinerario. Poi ho convertito tutto in tabelle relazionali, usando chiavi primarie e vincoli
+di integrità referenziale.
+
+Per la parte implementativa, ho scritto:
+- un file SQL con tutti i comandi per creare le tabelle
+- un file per inserire dati realistici (che aiutano anche a trovare errori di progettazione)
+- un file con operazioni di test, come eliminazioni o modifiche, per controllare che i vincoli funzionino come previsto
+
+Nel complesso, il progetto è stato pensato per essere chiaro, coerente e facilmente estendibile. 
+Tutte le scelte sono state fatte cercando un equilibrio tra semplicità, efficienza e realismo.
+
+È disponibile anche una versione grafica dello schema E-R, utile da usare in fase di presentazione.
