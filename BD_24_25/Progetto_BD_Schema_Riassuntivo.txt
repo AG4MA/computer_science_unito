@@ -1,31 +1,25 @@
+Progetto Basi di Dati – Aree Protette Italiane
 
-PROGETTO BASI DI DATI – AREE PROTETTE ITALIANE
+Il progetto ha l’obiettivo di realizzare un sistema informativo completo e ben strutturato per la gestione e la consultazione delle aree protette italiane, come parchi nazionali e riserve naturali. L’idea è offrire uno strumento utile sia per i gestori che per i visitatori.
+Il lavoro è partito dall’analisi dei requisiti, che sono stati riorganizzati in modo strutturato per facilitare la modellazione del database. È stato definito anche un glossario dei termini, per assicurare coerenza e chiarezza fin da subito.
+Lo schema E-R progettato include tutte le entità principali: aree protette, centri visita, strutture ricettive, itinerari, guide, tour guidati, visitatori, prenotazioni, commenti, valutazioni, notizie e tracciamento delle presenze.
 
-Questo progetto nasce con l’idea di creare un sistema che organizzi tutte le informazioni relative alle aree protette italiane,
-come i parchi nazionali e le riserve naturali. L’obiettivo è offrire una panoramica completa e strumenti utili sia per la gestione
-che per i visitatori.
+Alcune scelte progettuali rilevanti:
 
-Il primo passo è stato leggere con attenzione i requisiti, individuare i concetti chiave e definire un glossario dei termini
-per avere chiarezza fin da subito. Poi, ho riscritto i requisiti in modo più strutturato e omogeneo, così da facilitare la 
-modellazione del database.
+I visitatori sono modellati come un’unica entità, con un attributo che identifica la tipologia (adulto, bambino, gruppo scolastico, ecc.).
+Le guide sono entità indipendenti, con calendario di disponibilità e itinerari per cui sono abilitate.
+I tour guidati sono separati dagli itinerari per permettere la gestione di orari, prenotazioni e limiti di partecipanti.
+Per tracciare le visite effettive è stata introdotta l’entità Presenza, collegata agli itinerari percorsi tramite ItinerarioPercorso, che contiene anche il feedback lasciato per ogni tragitto.
+È stata mantenuta una piccola ridondanza (come il numero di guide disponibili per itinerario) per motivi di efficienza e prestazioni.
+Nella fase logica sono stati stimati i volumi attesi e individuate le principali operazioni: come la prenotazione di un tour, l’inserimento di feedback o la gestione del calendario delle guide. Lo schema è poi stato trasformato in relazioni, con identificatori artificiali e vincoli di integrità referenziale.
 
-Lo schema E-R rappresenta tutte le entità principali: i parchi, i visitatori, le guide, le strutture ricettive, gli itinerari, 
-i tour guidati, i commenti, le valutazioni, le notizie. Sono state fatte alcune scelte progettuali importanti:
-- i visitatori sono tutti nella stessa entità, ma con un attributo che indica se sono adulti, bambini, gruppi ecc.
-- le guide sono entità indipendenti con un calendario di disponibilità
-- i tour guidati sono separati dagli itinerari per gestire meglio le prenotazioni
-- è stato deciso di mantenere una piccola ridondanza (il numero di guide disponibili per itinerario) per migliorare le prestazioni
+Per l’implementazione sono stati prodotti:
 
-Nella progettazione logica ho stimato i volumi di dati attesi e identificato le operazioni principali, come la prenotazione 
-di un tour o la valutazione di un itinerario. Poi ho convertito tutto in tabelle relazionali, usando chiavi primarie e vincoli
-di integrità referenziale.
+un file SQL per la creazione delle tabelle;
 
-Per la parte implementativa, ho scritto:
-- un file SQL con tutti i comandi per creare le tabelle
-- un file per inserire dati realistici (che aiutano anche a trovare errori di progettazione)
-- un file con operazioni di test, come eliminazioni o modifiche, per controllare che i vincoli funzionino come previsto
+un file di popolamento con dati realistici per simulare l’uso effettivo del sistema;
 
-Nel complesso, il progetto è stato pensato per essere chiaro, coerente e facilmente estendibile. 
-Tutte le scelte sono state fatte cercando un equilibrio tra semplicità, efficienza e realismo.
+un file con operazioni di test (come cancellazioni e modifiche) per verificare il rispetto dei vincoli.
 
-È disponibile anche una versione grafica dello schema E-R, utile da usare in fase di presentazione.
+Nel complesso, il sistema è stato progettato per essere chiaro, scalabile, e in linea con i requisiti funzionali reali.
+Lo schema E-R è disponibile anche in forma grafica per la presentazione.

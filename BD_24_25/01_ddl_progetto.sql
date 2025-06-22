@@ -1,4 +1,3 @@
-
 -- DDL: Creazione delle tabelle per il progetto "Aree Protette Italiane"
 
 CREATE TABLE AreaProtetta (
@@ -18,7 +17,38 @@ CREATE TABLE CentroVisita (
     ID INT PRIMARY KEY,
     nome VARCHAR(100),
     parcoID INT,
+    temporaneamenteChiuso BOOLEAN,
+    indirizzo TEXT,
+    accessibilità TEXT,
+    mostra TEXT,
     FOREIGN KEY (parcoID) REFERENCES AreaProtetta(ID)
+);
+
+CREATE TABLE OrariCentroVisita (
+    ID INT PRIMARY KEY,
+    centroVisitaID INT,
+    giornoSettimana VARCHAR(20),
+    fasciaOraria VARCHAR(50),
+    mesiValidi VARCHAR(50),
+    FOREIGN KEY (centroVisitaID) REFERENCES CentroVisita(ID)
+);
+
+CREATE TABLE PrezziCentroVisita (
+    ID INT PRIMARY KEY,
+    centroVisitaID INT,
+    costo DECIMAL(6,2),
+    descrizione TEXT,
+    prenotazioneObbligatoria BOOLEAN,
+    FOREIGN KEY (centroVisitaID) REFERENCES CentroVisita(ID)
+);
+
+CREATE TABLE ConvenzioniSpecialiCentroVisita (
+    ID INT PRIMARY KEY,
+    centroVisitaID INT,
+    descrizione TEXT,
+    destinatari TEXT,
+    costo DECIMAL(6,2),
+    FOREIGN KEY (centroVisitaID) REFERENCES CentroVisita(ID)
 );
 
 CREATE TABLE StrutturaRicettiva (
@@ -59,6 +89,14 @@ CREATE TABLE Guida (
     ID INT PRIMARY KEY,
     licenza VARCHAR(100),
     nome VARCHAR(100)
+);
+
+CREATE TABLE GuidaItinerario (
+    guidaID INT,
+    itinerarioID INT,
+    PRIMARY KEY (guidaID, itinerarioID),
+    FOREIGN KEY (guidaID) REFERENCES Guida(ID),
+    FOREIGN KEY (itinerarioID) REFERENCES Itinerario(ID)
 );
 
 CREATE TABLE TourGuidato (
@@ -107,9 +145,9 @@ CREATE TABLE Commento (
     testo TEXT,
     data DATE,
     visitatoreID INT,
-    itinerarioID INT,
-    FOREIGN KEY (visitatoreID) REFERENCES Visitatore(ID),
-    FOREIGN KEY (itinerarioID) REFERENCES Itinerario(ID)
+    targetID INT,
+    tipoTarget VARCHAR(50),
+    FOREIGN KEY (visitatoreID) REFERENCES Visitatore(ID)
 );
 
 CREATE TABLE Valutazione (
@@ -129,4 +167,26 @@ CREATE TABLE Notizia (
     immagine TEXT,
     parcoID INT,
     FOREIGN KEY (parcoID) REFERENCES AreaProtetta(ID)
+);
+
+CREATE TABLE Presenza (
+    ID INT PRIMARY KEY,
+    visitatoreID INT,
+    parcoID INT,
+    data DATE,
+    oraIngresso TIME,
+    oraUscita TIME,
+    tipologiaUtente VARCHAR(50),
+    FOREIGN KEY (visitatoreID) REFERENCES Visitatore(ID),
+    FOREIGN KEY (parcoID) REFERENCES AreaProtetta(ID)
+);
+
+CREATE TABLE ItinerarioPercorso (
+    ID INT PRIMARY KEY,
+    presenzaID INT,
+    itinerarioID INT,
+    valutazione INT CHECK (valutazione BETWEEN 1 AND 5),
+    commento TEXT,
+    FOREIGN KEY (presenzaID) REFERENCES Presenza(ID),
+    FOREIGN KEY (itinerarioID) REFERENCES Itinerario(ID)
 );
